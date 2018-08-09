@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>管理员登录</title>
+	<script type="text/javascript" src="js/jquery-3.2.1.js"></script>
+	<script type="text/javascript" src="js/common.js"></script>
+	<script type="text/javascript" src="js/kindeditor-4.1.10/kindeditor.js"></script>
+	<script type="text/javascript" src="js/kindeditor-4.1.10/kindeditor-all.js"></script>
+	<script type="text/javascript" src="js/kindeditor-4.1.10/kindeditor-all-min.js"></script>
+	<script type="text/javascript" src="js/kindeditor-4.1.10/kindeditor-min.js"></script>
+	<script type="text/javascript" src="js/jquery-easyui-1.4.1/easyloader.js"></script>
+	<script type="text/javascript" src="js/jquery-easyui-1.4.1/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="js/jquery-easyui-1.4.1/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery-easyui-1.4.1/plugins/jquery.tree.js"></script>
+	<script type="text/javascript" src="js/jquery-easyui-1.4.1/plugins/jquery.parser.js"></script>
+	<link rel="stylesheet" href="css/taotao.css">
+	<link rel="stylesheet" href="js/jquery-easyui-1.4.1/themes/color.css">
+	<link rel="stylesheet" href="js/jquery-easyui-1.4.1/themes/icon.css">
+	<link rel="stylesheet" href="js/jquery-easyui-1.4.1/themes/metro/tree.css">
+</head>
+<body style="background-color: #F3F3F3">
+    <div class="easyui-dialog" title="管理员登录" data-options="closable:false,draggable:false" style="width:400px;height:300px;padding:10px;">
+       	<div style="margin-left: 50px;margin-top: 50px;">
+       		<div style="margin-bottom:20px;">
+	            <div>
+	            	用户名: <input name="username" class="easyui-textbox" data-options="required:true" style="width:200px;height:32px" value="admin"/>
+	            </div>
+	        </div>
+	        <div style="margin-bottom:20px">
+	            <div>
+	            	密&nbsp;&nbsp;码: <input name="password" class="easyui-textbox" type="password" style="width:200px;height:32px" data-options="" value="admin"/>
+	            </div>
+	        </div>
+	        <div>
+	            <a id="login" class="easyui-linkbutton" iconCls="icon-ok" style="width:100px;height:32px;margin-left: 50px">登录</a>
+	        </div>
+       	</div>
+    </div>
+    
+    <script type="text/javascript">
+    	$("#login").click(function(){
+    		var username = $("[name=username]").val();
+    		var password = $("[name=password]").val();
+
+//    		if(username!="admin" || password!="admin"){
+//    			$.messager.alert('错误',"用户名密码不
+// 正确！");
+//    				return ;
+//    		}
+			var d = "";
+		d=JSON.stringify({'adminAccount':username,'adminPswd':password});
+			$.ajax({
+				url:"login/loginchoose.do",
+				type:"post",
+				contentType:"application/json",
+				dataType:"json",
+				data:d,
+				success:function (data) {
+					if(data.loginMsg){
+						window.location.href="html/index.html";
+					}else {
+						alert("用户不存在")
+					}
+				},error:function () {
+					alert("失败")
+				}
+
+
+			})
+
+
+
+
+
+
+
+
+
+
+
+
+
+    	});
+    </script>
+</body>
+</html>

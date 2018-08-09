@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yang.mapper.Tb_adminMapper" >
+  <resultMap id="BaseResultMap" type="com.yang.bean.Tb_admin" >
+    <constructor >
+      <idArg column="admin_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="admin_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="admin_account" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="admin_pswd" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="admin_telephone" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="admin_email" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="impower_date" jdbcType="DATE" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    admin_id, admin_name, admin_account, admin_pswd, admin_telephone, admin_email, impower_date
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yang.bean.Tb_adminExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tb_admin
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_admin
+    where admin_id = #{adminId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_admin
+    where admin_id = #{adminId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yang.bean.Tb_adminExample" >
+    delete from tb_admin
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yang.bean.Tb_admin" >
+    insert into tb_admin (admin_id, admin_name, admin_account, 
+      admin_pswd, admin_telephone, admin_email, 
+      impower_date)
+    values (#{adminId,jdbcType=INTEGER}, #{adminName,jdbcType=VARCHAR}, #{adminAccount,jdbcType=VARCHAR}, 
+      #{adminPswd,jdbcType=VARCHAR}, #{adminTelephone,jdbcType=VARCHAR}, #{adminEmail,jdbcType=VARCHAR}, 
+      #{impowerDate,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yang.bean.Tb_admin" >
+    insert into tb_admin
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="adminId != null" >
+        admin_id,
+      </if>
+      <if test="adminName != null" >
+        admin_name,
+      </if>
+      <if test="adminAccount != null" >
+        admin_account,
+      </if>
+      <if test="adminPswd != null" >
+        admin_pswd,
+      </if>
+      <if test="adminTelephone != null" >
+        admin_telephone,
+      </if>
+      <if test="adminEmail != null" >
+        admin_email,
+      </if>
+      <if test="impowerDate != null" >
+        impower_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="adminId != null" >
+        #{adminId,jdbcType=INTEGER},
+      </if>
+      <if test="adminName != null" >
+        #{adminName,jdbcType=VARCHAR},
+      </if>
+      <if test="adminAccount != null" >
+        #{adminAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="adminPswd != null" >
+        #{adminPswd,jdbcType=VARCHAR},
+      </if>
+      <if test="adminTelephone != null" >
+        #{adminTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="adminEmail != null" >
+        #{adminEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="impowerDate != null" >
+        #{impowerDate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yang.bean.Tb_adminExample" resultType="java.lang.Integer" >
+    select count(*) from tb_admin
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_admin
+    <set >
+      <if test="record.adminId != null" >
+        admin_id = #{record.adminId,jdbcType=INTEGER},
+      </if>
+      <if test="record.adminName != null" >
+        admin_name = #{record.adminName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adminAccount != null" >
+        admin_account = #{record.adminAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adminPswd != null" >
+        admin_pswd = #{record.adminPswd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adminTelephone != null" >
+        admin_telephone = #{record.adminTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adminEmail != null" >
+        admin_email = #{record.adminEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.impowerDate != null" >
+        impower_date = #{record.impowerDate,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_admin
+    set admin_id = #{record.adminId,jdbcType=INTEGER},
+      admin_name = #{record.adminName,jdbcType=VARCHAR},
+      admin_account = #{record.adminAccount,jdbcType=VARCHAR},
+      admin_pswd = #{record.adminPswd,jdbcType=VARCHAR},
+      admin_telephone = #{record.adminTelephone,jdbcType=VARCHAR},
+      admin_email = #{record.adminEmail,jdbcType=VARCHAR},
+      impower_date = #{record.impowerDate,jdbcType=DATE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yang.bean.Tb_admin" >
+    update tb_admin
+    <set >
+      <if test="adminName != null" >
+        admin_name = #{adminName,jdbcType=VARCHAR},
+      </if>
+      <if test="adminAccount != null" >
+        admin_account = #{adminAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="adminPswd != null" >
+        admin_pswd = #{adminPswd,jdbcType=VARCHAR},
+      </if>
+      <if test="adminTelephone != null" >
+        admin_telephone = #{adminTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="adminEmail != null" >
+        admin_email = #{adminEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="impowerDate != null" >
+        impower_date = #{impowerDate,jdbcType=DATE},
+      </if>
+    </set>
+    where admin_id = #{adminId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yang.bean.Tb_admin" >
+    update tb_admin
+    set admin_name = #{adminName,jdbcType=VARCHAR},
+      admin_account = #{adminAccount,jdbcType=VARCHAR},
+      admin_pswd = #{adminPswd,jdbcType=VARCHAR},
+      admin_telephone = #{adminTelephone,jdbcType=VARCHAR},
+      admin_email = #{adminEmail,jdbcType=VARCHAR},
+      impower_date = #{impowerDate,jdbcType=DATE}
+    where admin_id = #{adminId,jdbcType=INTEGER}
+  </update>
+  <sql id="admin">
+    admin_id as adminId, admin_name as adminName,
+    admin_account as adminAccount,
+    admin_pswd as adminPswd,
+    admin_telephone as adminTelephone, admin_email as adminEmail,
+    impower_date as impowerDate
+  </sql>
+  <select id="selectByAccount_PSWD" parameterType="com.yang.bean.Tb_admin" resultType="com.yang.bean.Tb_admin">
+    select
+    <include refid="admin"/>
+    from tb_admin
+    where admin_account = #{adminAccount} and admin_pswd= #{adminPswd}
+  </select>
+</mapper>
